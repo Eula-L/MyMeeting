@@ -13,14 +13,17 @@ INCLUDEPATH +=./netapi
 
 SOURCES += \
     ckernel.cpp \
+    logindialog.cpp \
     main.cpp \
     mymeetingdialog.cpp
 
 HEADERS += \
     ckernel.h \
+    logindialog.h \
     mymeetingdialog.h
 
 FORMS += \
+    logindialog.ui \
     mymeetingdialog.ui
 
 # Default rules for deployment.

@@ -7,6 +7,7 @@
 #include "mymeetingdialog.h"
 #include "TcpClientMediator.h"
 #include "packdef.h"
+#include "logindialog.h"
 
 #include <QtDebug>
 
@@ -35,6 +36,10 @@ public slots:
     void setNetPackMap();
     //用于回收的槽函数
     void slot_destroy();
+
+    //发送登录信息
+    void slot_loginCommit(QString tel,QString pwd);
+
     //网络信息处理
     void slot_dealData(uint sock,char* buf,int nLen);
     //登录回复
@@ -43,8 +48,12 @@ public slots:
     void slot_dealRegisterRs(uint sock,char* buf,int nLen);
 
 
+
 private:
-    MyMeetingDialog * m_pMyMeetingDlg;
+    MyMeetingDialog * m_pMyMeetingDlg;//主窗口
+    LoginDialog * m_pLoginDialog;//登录注册窗口
+
+
     INetMediator* m_pClient;
 
     //协议映射表
