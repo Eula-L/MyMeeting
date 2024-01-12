@@ -1,6 +1,8 @@
 #ifndef CKERNEL_H
 #define CKERNEL_H
 
+#define NetPackMap(a) m_netPackMap[ a - DEF_PACK_BASE ]
+
 #include <QObject>
 #include "mymeetingdialog.h"
 #include "TcpClientMediator.h"
