@@ -32,8 +32,11 @@ public:
 signals:
 
 public slots:
-
+    //设置映射协议关系
     void setNetPackMap();
+    //初始化配置
+    void initConfig();
+
     //用于回收的槽函数
     void slot_destroy();
 
@@ -52,12 +55,10 @@ public slots:
 private:
     MyMeetingDialog * m_pMyMeetingDlg;//主窗口
     LoginDialog * m_pLoginDialog;//登录注册窗口
-
-
     INetMediator* m_pClient;
-
     //协议映射表
     PFUN m_netPackMap[DEF_PACK_COUNT];
+    QString m_serverIp;
 
 
 };

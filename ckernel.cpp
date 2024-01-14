@@ -9,29 +9,72 @@ void CKernel::setNetPackMap()
     NetPackMap(DEF_PACK_LOGIN_RS)           = &CKernel::slot_dealLoginRs;
     NetPackMap(DEF_PACK_REGISTER_RS)        = &CKernel::slot_dealRegisterRs;
 }
+#include <QSettings>//管理配置文件
+#include <QApplication>//用于获取程序的exe目录，绝对路径
+#include <QFileInfo>//查看文件信息，用于判断一个路径下时候存在文件
+
+void CKernel::initConfig()
+{
+    //设置一个默认值
+    m_serverIp = _DEF_SERVERIP;
+    //获取exe目录
+    QString path = QCoreApplication::applicationDirPath()+="/config.ini";
+    //根据目录
+    //查看文件是否存在，存在加载，不存在创建并写入默认值
+    QFileInfo info(path);
+    if(info.exists())
+    {
+        qDebug()<<"存在";
+        //存在
+        QSettings setting(path,QSettings::IniFormat);
+        //打开组
+        setting.beginGroup("net");
+        //读取
+        auto strIP = setting.value("ip","");
+        if(!strIP.toString().isEmpty())
+        {
+            m_serverIp = strIP.toString();
+        }
+        //关闭组
+        setting.endGroup();
+    }
+    else
+    {
+        qDebug()<<"不存在";
+        //不存在
+        QSettings setting(path,QSettings::IniFormat);//创建
+        //打开组
+        setting.beginGroup("net");
+        //设置
+        setting.setValue("ip",m_serverIp);
+        //关闭组
+        setting.endGroup();
+    }
+    qDebug()<<"ip: "<<m_serverIp;
+}
 
 CKernel::CKernel(QObject *parent) : QObject(parent)
 {
     qDebug()<<__func__;
     setNetPackMap();
+    initConfig();
 
     m_pMyMeetingDlg = new MyMeetingDialog;
+    m_pLoginDialog = new LoginDialog;
+    m_pClient = new TcpClientMediator;
+
     connect(m_pMyMeetingDlg,SIGNAL(SIG_close()),
             this,SLOT(slot_destroy()));
 
-//    m_pMyMeetingDlg->show();
-    m_pLoginDialog = new LoginDialog;
     connect(m_pLoginDialog,SIGNAL(SIG_loginCommit(QString,QString)),
             this,SLOT(slot_loginCommit(QString,QString)));
-    m_pLoginDialog->show();
-
-
-    //添加网络
-    m_pClient = new TcpClientMediator;
-    m_pClient ->OpenNet(_DEF_SERVERIP,_DEF_PORT);
 
     connect(m_pClient,SIGNAL(SIG_ReadyData(uint,char*,int)),
             this,SLOT(slot_dealData(uint,char*,int)));
+    m_pLoginDialog->show();
+    //添加网络
+    m_pClient ->OpenNet(m_serverIp.toStdString().c_str(),_DEF_PORT);
+
 }
 
 
