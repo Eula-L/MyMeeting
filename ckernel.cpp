@@ -1,6 +1,6 @@
 #include "ckernel.h"
 #include <QDebug>
-
+#include "md5.h"
 //设置协议映射关系
 void CKernel::setNetPackMap()
 {
@@ -62,15 +62,22 @@ CKernel::CKernel(QObject *parent) : QObject(parent)
     m_pMyMeetingDlg = new MyMeetingDialog;
     m_pLoginDialog = new LoginDialog;
     m_pClient = new TcpClientMediator;
-
+    //主界面-关闭事件
     connect(m_pMyMeetingDlg,SIGNAL(SIG_close()),
+            this,SLOT(slot_destroy()));
+    //登录界面-关闭事件
+    connect(m_pLoginDialog,SIGNAL(SIG_close()),
             this,SLOT(slot_destroy()));
 
     connect(m_pLoginDialog,SIGNAL(SIG_loginCommit(QString,QString)),
             this,SLOT(slot_loginCommit(QString,QString)));
+    connect(m_pLoginDialog,SIGNAL(SIG_registerCommit(QString,QString,QString)),
+            this,SLOT(slot_registerCommit(QString,QString,QString)));
 
+    //处理接收到的数据
     connect(m_pClient,SIGNAL(SIG_ReadyData(uint,char*,int)),
             this,SLOT(slot_dealData(uint,char*,int)));
+
     m_pLoginDialog->show();
     //添加网络
     m_pClient ->OpenNet(m_serverIp.toStdString().c_str(),_DEF_PORT);
@@ -84,10 +91,25 @@ void CKernel::slot_destroy()
     qDebug()<<__func__;
     if(m_pMyMeetingDlg)
     {
+
         m_pMyMeetingDlg->hide();//先将窗口隐藏
         delete m_pMyMeetingDlg;
         m_pMyMeetingDlg = NULL;
     }
+    if(m_pLoginDialog)
+    {
+        m_pLoginDialog->hide();
+        delete m_pLoginDialog;
+        m_pLoginDialog = NULL;
+    }
+    //回收网络
+    if(m_pClient)
+    {
+        m_pClient->CloseNet();
+        delete m_pClient;
+        m_pClient = NULL;
+    }
+    exit(0);
 }
 
 //发送登录信息
@@ -98,8 +120,19 @@ void CKernel::slot_loginCommit(QString tel, QString pwd)
     STRU_LOGIN_RQ rq;
     strcpy(rq.m_szUser,strTel.c_str());
     strcpy(rq.m_szPassword,strPwd.c_str());
+    //验证这个MD5的封装是否和普遍的一致
+    int nLen  =strlen(rq.m_szPassword);
+    MD5 md5(rq.m_szPassword,nLen);
+    std::string strPassWordMD5 = md5.toString();
+    qDebug()<<strPassWordMD5.c_str()<<endl;
+    //123456->e10adc3949ba59abbe56e057f20f883e
 
     m_pClient->SendData(0,(char*)&rq,sizeof (rq));
+}
+//发送注册信息
+void CKernel::slot_registerCommit(QString tel, QString name, QString pwd)
+{
+
 }
 
 

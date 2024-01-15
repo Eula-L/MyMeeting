@@ -14,6 +14,12 @@ LoginDialog::~LoginDialog()
 {
     delete ui;
 }
+
+void LoginDialog::closeEvent(QCloseEvent *event)
+{
+    event->ignore();
+    Q_EMIT SIG_close();
+}
 //登录界面清空
 void LoginDialog::on_pb_clear_clicked()
 {

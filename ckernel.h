@@ -39,11 +39,16 @@ public slots:
 
     //用于回收的槽函数
     void slot_destroy();
-
+    //客户端信息处理
+    //
     //发送登录信息
     void slot_loginCommit(QString tel,QString pwd);
+    //发送注册信息
+    void slot_registerCommit(QString tel,QString name,QString pwd);
+
 
     //网络信息处理
+    //
     void slot_dealData(uint sock,char* buf,int nLen);
     //登录回复
     void slot_dealLoginRs(uint sock,char* buf,int nLen);

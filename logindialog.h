@@ -2,7 +2,7 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
-
+#include <QCloseEvent>
 namespace Ui {
 class LoginDialog;
 }
@@ -13,10 +13,11 @@ class LoginDialog : public QDialog
 signals:
     void SIG_loginCommit(QString tel, QString password);
     void SIG_registerCommit(QString tel,QString name,QString password);
+    void SIG_close();
 public:
     explicit LoginDialog(QWidget *parent = nullptr);
     ~LoginDialog();
-
+    void closeEvent(QCloseEvent *event);
 private slots:
     void on_pb_commit_clicked();
 

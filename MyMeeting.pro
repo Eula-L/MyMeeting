@@ -10,6 +10,8 @@ CONFIG += c++11
 
 include(./netapi/netapi.pri)
 INCLUDEPATH +=./netapi
+include(./MD5/md5.pri)
+INCLUDEPATH +=./MD5
 
 SOURCES += \
     ckernel.cpp \
