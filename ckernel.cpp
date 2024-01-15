@@ -111,21 +111,27 @@ void CKernel::slot_destroy()
     }
     exit(0);
 }
+#define MD5_KEY (1234)
+//创建一个获取md5密文的静态方法
+static std::string getMD5(QString value)
+{
+    QString str  = QString("%1_%2").arg(value).arg(MD5_KEY);
+    std::string strRes = str.toStdString();
+    MD5 md5(strRes);
+    return md5.toString();
+}
 
 //发送登录信息
 void CKernel::slot_loginCommit(QString tel, QString pwd)
 {
     std::string strTel = tel.toStdString();
-    std::string strPwd = pwd.toStdString();
+    //std::string strPwd = pwd.toStdString();
+    std::string PwdMD5 = getMD5(pwd);
+    qDebug()<<PwdMD5.c_str();
+
     STRU_LOGIN_RQ rq;
     strcpy(rq.m_szUser,strTel.c_str());
-    strcpy(rq.m_szPassword,strPwd.c_str());
-    //验证这个MD5的封装是否和普遍的一致
-    int nLen  =strlen(rq.m_szPassword);
-    MD5 md5(rq.m_szPassword,nLen);
-    std::string strPassWordMD5 = md5.toString();
-    qDebug()<<strPassWordMD5.c_str()<<endl;
-    //123456->e10adc3949ba59abbe56e057f20f883e
+    strcpy(rq.m_szPassword,PwdMD5.c_str());
 
     m_pClient->SendData(0,(char*)&rq,sizeof (rq));
 }
