@@ -40,7 +40,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page_login">
     <attribute name="title">
@@ -120,6 +120,9 @@
        <height>30</height>
       </rect>
      </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
      <property name="clearButtonEnabled">
       <bool>true</bool>
      </property>
@@ -177,6 +180,12 @@
        <height>30</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入11位手机号&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QLabel" name="lb_password_register">
      <property name="geometry">
@@ -199,6 +208,15 @@
        <width>220</width>
        <height>30</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入6-20位以密码&lt;/p&gt;&lt;p&gt;可以是字符和数字&lt;/p&gt;&lt;p&gt;不要使用空格&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="lb_confirm_register">
@@ -223,6 +241,15 @@
        <height>30</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;请再次输入密码&lt;/p&gt;&lt;p&gt;保证两次输入一致&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QLineEdit" name="le_name_register">
      <property name="geometry">
@@ -233,8 +260,14 @@
        <height>30</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入10位以内的昵称&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="lb_name_register">
@@ -272,6 +305,19 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>le_tel_register</tabstop>
+  <tabstop>le_name_register</tabstop>
+  <tabstop>le_password_register</tabstop>
+  <tabstop>le_confirm_register</tabstop>
+  <tabstop>pb_commit_register</tabstop>
+  <tabstop>pb_clear_register</tabstop>
+  <tabstop>tw_page</tabstop>
+  <tabstop>le_tel</tabstop>
+  <tabstop>le_password</tabstop>
+  <tabstop>pb_commit</tabstop>
+  <tabstop>pb_clear</tabstop>
+ </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>

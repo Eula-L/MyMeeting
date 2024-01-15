@@ -101,6 +101,11 @@ void CKernel::slot_loginCommit(QString tel, QString pwd)
 
     m_pClient->SendData(0,(char*)&rq,sizeof (rq));
 }
+
+
+
+
+//一下是处理从服务器接收到的信息
 //网络处理
 void CKernel::slot_dealData(uint sock, char *buf, int nLen)
 {
