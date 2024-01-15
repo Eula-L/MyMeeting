@@ -70,8 +70,9 @@
 
 
 //注册请求结果
-#define userid_is_exist      0
+#define tel_is_exist         0
 #define register_sucess      1
+#define name_is_exist        2
 
 //登录请求结果
 #define userid_no_exist      0
@@ -112,13 +113,13 @@ typedef struct STRU_LOGIN_RQ
     STRU_LOGIN_RQ()
     {
         m_nType = DEF_PACK_LOGIN_RQ;
-        memset(m_szUser,0,MAX_SIZE);
-        memset(m_szPassword,0,MAX_SIZE);
+        memset(m_tel,0,MAX_SIZE);
+        memset(m_password,0,MAX_SIZE);
     }
 
     PackType m_nType;   //包类型
-    char     m_szUser[MAX_SIZE] ; //用户ID
-    char     m_szPassword[MAX_SIZE];  //密码
+    char     m_tel[MAX_SIZE] ; //用户ID
+    char     m_password[MAX_SIZE];  //密码
 } STRU_LOGIN_RQ;
 
 
@@ -128,11 +129,11 @@ typedef struct STRU_LOGIN_RS
     STRU_LOGIN_RS()
     {
         m_nType= DEF_PACK_LOGIN_RS;
-        m_UserID = 0;
+        m_userid = 0;
         m_lResult = 0;
     }
     PackType m_nType;   //包类型
-    int  m_UserID;
+    int  m_userid;
     int  m_lResult ; //注册结果
 
 } STRU_LOGIN_RS;
@@ -144,13 +145,15 @@ typedef struct STRU_REGISTER_RQ
     STRU_REGISTER_RQ()
     {
         m_nType = DEF_PACK_REGISTER_RQ;
-        memset(m_szUser,0,MAX_SIZE);
-        memset(m_szPassword,0,MAX_SIZE);
+        memset(m_tel,0,MAX_SIZE);
+        memset(m_password,0,MAX_SIZE);
+        memset(m_name,0,MAX_SIZE);
     }
 
     PackType m_nType;   //包类型
-    char     m_szUser[MAX_SIZE] ; //用户名
-    char     m_szPassword[MAX_SIZE];  //密码
+    char     m_tel[MAX_SIZE] ; //手机号
+    char     m_password[MAX_SIZE];  //密码
+    char     m_name[MAX_SIZE];  //昵称
 
 } STRU_REGISTER_RQ;
 

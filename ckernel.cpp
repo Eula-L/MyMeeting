@@ -125,20 +125,29 @@ static std::string getMD5(QString value)
 void CKernel::slot_loginCommit(QString tel, QString pwd)
 {
     std::string strTel = tel.toStdString();
-    //std::string strPwd = pwd.toStdString();
     std::string PwdMD5 = getMD5(pwd);
-    qDebug()<<PwdMD5.c_str();
 
     STRU_LOGIN_RQ rq;
-    strcpy(rq.m_szUser,strTel.c_str());
-    strcpy(rq.m_szPassword,PwdMD5.c_str());
+    strcpy(rq.m_tel,strTel.c_str());
+    strcpy(rq.m_password,PwdMD5.c_str());
 
     m_pClient->SendData(0,(char*)&rq,sizeof (rq));
 }
 //发送注册信息
 void CKernel::slot_registerCommit(QString tel, QString name, QString pwd)
 {
+    std::string strTel = tel.toStdString();
+    std::string PwdMD5 = getMD5(pwd);
+    //中文
+    //兼容中文QString->std::string->char*
+    std::string strName = name.toStdString();//utf8
 
+    STRU_REGISTER_RQ rq;
+    strcpy(rq.m_tel,strTel.c_str());
+    strcpy(rq.m_password,PwdMD5.c_str());
+    strcpy(rq.m_name,strName.c_str());
+
+    m_pClient->SendData(0,(char*)&rq,sizeof (rq));
 }
 
 
@@ -168,5 +177,5 @@ void CKernel::slot_dealLoginRs(uint sock, char *buf, int nLen)
 //注册回复处理
 void CKernel::slot_dealRegisterRs(uint sock, char *buf, int nLen)
 {
-
+    qDebug()<<__func__;
 }
