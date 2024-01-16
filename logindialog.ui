@@ -183,6 +183,9 @@
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入11位手机号&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
+     <property name="text">
+      <string>19904662994</string>
+     </property>
      <property name="clearButtonEnabled">
       <bool>true</bool>
      </property>
@@ -211,6 +214,9 @@
      </property>
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入6-20位以密码&lt;/p&gt;&lt;p&gt;可以是字符和数字&lt;/p&gt;&lt;p&gt;不要使用空格&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>123123</string>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
@@ -244,6 +250,9 @@
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;请再次输入密码&lt;/p&gt;&lt;p&gt;保证两次输入一致&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
+     <property name="text">
+      <string>123123</string>
+     </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
      </property>
@@ -264,7 +273,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入10位以内的昵称&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
-      <string/>
+      <string>刘昊</string>
      </property>
      <property name="clearButtonEnabled">
       <bool>true</bool>

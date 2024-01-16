@@ -1,6 +1,7 @@
 #include "ckernel.h"
 #include <QDebug>
 #include "md5.h"
+#include <QMessageBox>
 //设置协议映射关系
 void CKernel::setNetPackMap()
 {
@@ -178,4 +179,21 @@ void CKernel::slot_dealLoginRs(uint sock, char *buf, int nLen)
 void CKernel::slot_dealRegisterRs(uint sock, char *buf, int nLen)
 {
     qDebug()<<__func__;
+    //拆包
+    STRU_REGISTER_RS *rs = (STRU_REGISTER_RS*)buf;
+    //根据不同结果弹出不同窗口
+    switch(rs->m_lResult)
+    {
+    case tel_is_exist:
+        QMessageBox::about(m_pLoginDialog,"提示","手机号存在，注册失败");
+        break;
+    case name_is_exist:
+        QMessageBox::about(m_pLoginDialog,"提示","昵称存在，注册失败");
+        break;
+    case register_sucess:
+        QMessageBox::about(m_pLoginDialog,"提示","注册成功");
+        break;
+    default:
+        break;
+    }
 }
