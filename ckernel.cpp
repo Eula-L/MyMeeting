@@ -195,5 +195,8 @@ void CKernel::slot_dealRegisterRs(uint sock, char *buf, int nLen)
         break;
     default:
         break;
+
+
+
     }
 }
